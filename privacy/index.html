@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>Politique de confidentialité — Nutri-Fit</h1>
-<p class="muted">Dernière mise à jour : 30 août 2026</p>
+<p class="muted">Dernière mise à jour : 6 septembre 2026</p>
 
 <p>Nutri-Fit est une application de suivi sportif et nutritionnel conçue pour fonctionner
 sans compte, sans publicité et sans suivi publicitaire. Vos données d'entraînement et
@@ -33,20 +33,27 @@ depuis Réglages → Données et confidentialité.</p>
 <h2>Apple Santé</h2>
 <p>Si vous l'autorisez, Nutri-Fit lit vos calories actives et votre poids depuis Apple
 Santé, et peut y écrire vos séances, repas, hydratation et pesées. Ces échanges se font
-entièrement sur votre appareil, via HealthKit. <strong>Aucune donnée de santé ne quitte
-votre appareil</strong> et aucune n'est transmise à des services tiers. Vous pouvez
+via HealthKit, avec les autorisations que vous choisissez. Nutri-Fit ne transmet pas
+les données lues dans Santé à Open Food Facts, Sentry ou PostHog. Leur synchronisation
+et leur sauvegarde par Apple dépendent de vos réglages Apple Santé et iCloud. Vous pouvez
 révoquer cet accès à tout moment dans Réglages iOS → Santé.</p>
 
 <h2>Recherche alimentaire</h2>
 <p>Lorsque vous recherchez un aliment ou scannez un code-barres, seuls le terme de
 recherche ou le code-barres sont envoyés à la base de données ouverte
 <a href="https://world.openfoodfacts.org/privacy">Open Food Facts</a> pour obtenir les
-informations nutritionnelles. Ces requêtes ne contiennent aucun identifiant personnel et
-ne sont pas conservées par Nutri-Fit. L'analyse de repas par description fonctionne
-entièrement sur l'appareil (Apple Intelligence), sans envoi de texte à un serveur.</p>
+informations nutritionnelles. Nutri-Fit n'ajoute pas votre identité ni votre journal
+à ces requêtes ; comme pour toute connexion Internet, le service reçoit des informations
+techniques de connexion, notamment l'adresse IP. L'analyse des photos et descriptions
+s'effectue sur l'appareil, selon les fonctions Apple disponibles. Pour compléter les
+informations nutritionnelles, les noms d'aliments reconnus absents du catalogue local
+peuvent être recherchés dans Open Food Facts. Les photos et la description complète
+ne sont pas envoyées à Open Food Facts.</p>
 
 <h2>Diagnostics et statistiques anonymes</h2>
-<p>Pour corriger les plantages et comprendre quelles fonctionnalités sont utiles,
+<p>Ces envois facultatifs sont <strong>désactivés par défaut</strong> et ne démarrent
+qu'après votre activation dans Réglages → Données et confidentialité.
+Pour corriger les plantages et comprendre quelles fonctionnalités sont utiles,
 Nutri-Fit peut envoyer des rapports de plantage à
 <a href="https://sentry.io/privacy/">Sentry</a> et des événements d'usage anonymes à
 <a href="https://posthog.com/privacy">PostHog</a> (hébergés dans l'Union européenne).
@@ -79,7 +86,7 @@ peuvent pas être reliées à une demande individuelle.</p>
 <hr>
 
 <h1 id="en">Privacy Policy — Nutri-Fit</h1>
-<p class="muted">Last updated: August 30, 2026</p>
+<p class="muted">Last updated: September 6, 2026</p>
 
 <p>Nutri-Fit is a workout and nutrition tracking app built to work without accounts, ads,
 or advertising tracking. Your training and nutrition data belongs to you and stays on
@@ -95,19 +102,25 @@ from Settings → Data and privacy.</p>
 <h2>Apple Health</h2>
 <p>If you allow it, Nutri-Fit reads your active calories and weight from Apple Health,
 and can write your workouts, meals, water, and weigh-ins to it. These exchanges happen
-entirely on your device through HealthKit. <strong>No health data ever leaves your
-device</strong>, and none is shared with third-party services. You can revoke access at
+through HealthKit, with the permissions you choose. Nutri-Fit does not send data read
+from Health to Open Food Facts, Sentry or PostHog. Apple's synchronization and backups
+depend on your Apple Health and iCloud settings. You can revoke access at
 any time in iOS Settings → Health.</p>
 
 <h2>Food search</h2>
 <p>When you search for a food or scan a barcode, only the search term or barcode is sent
 to the open database <a href="https://world.openfoodfacts.org/privacy">Open Food
-Facts</a> to retrieve nutrition facts. These requests carry no personal identifier and
-are not retained by Nutri-Fit. Meal analysis from a text description runs entirely
-on-device (Apple Intelligence); no text is sent to a server.</p>
+Facts</a> to retrieve nutrition facts. Nutri-Fit does not attach your identity or diary
+to these requests; like any Internet connection, the service receives technical
+connection information, including the IP address. Photos and descriptions are analyzed
+on-device using the available Apple features. To retrieve nutrition information,
+recognized food names missing from the local catalog may be looked up in Open Food Facts.
+Photos and the complete description are not sent to Open Food Facts.</p>
 
 <h2>Anonymous diagnostics and statistics</h2>
-<p>To fix crashes and understand which features are useful, Nutri-Fit may send crash
+<p>These optional transmissions are <strong>off by default</strong> and start only
+after you enable them in Settings → Data and privacy.
+To fix crashes and understand which features are useful, Nutri-Fit may send crash
 reports to <a href="https://sentry.io/privacy/">Sentry</a> and anonymous usage events to
 <a href="https://posthog.com/privacy">PostHog</a> (both hosted in the European Union).
 This data contains <strong>no health data, no identity, and no exploited IP
