@@ -3,39 +3,651 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nutri-Fit — Sport &amp; nutrition, en un regard</title>
+<title>Nutri-Fit — Musculation et nutrition réunies sur iPhone et Apple Watch</title>
+<meta name="description" content="Nutri-Fit relie vos séances de musculation et votre alimentation en un seul chiffre : mangé − dépensé = balance. Séances guidées, journal alimentaire, Apple Watch, sans compte ni publicité.">
+<meta property="og:title" content="Nutri-Fit — Mangé − dépensé = balance">
+<meta property="og:description" content="Vos séances et vos repas dans un seul bilan, sur iPhone et Apple Watch. Sans compte, sans publicité.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://hafidnes.github.io/nutri-fit-site/assets/partage.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="apple-itunes-app" content="app-id=6804208154">
+<meta name="theme-color" content="#f4f7f4" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0c1311" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="assets/touch-icon.png">
+<link rel="apple-touch-icon" href="assets/touch-icon.png">
 <style>
-  :root { color-scheme: light dark; }
-  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-         max-width: 42rem; margin: 0 auto; padding: 3rem 1.25rem 4rem; line-height: 1.6; }
-  h1 { font-size: 2rem; margin-bottom: .25rem; }
-  .tagline { font-size: 1.1rem; opacity: .75; margin-top: 0; }
-  ul { padding-left: 1.2rem; }
-  .links { margin-top: 2.5rem; }
-  a { color: #5a8a0c; }
-  .muted { opacity: .65; font-size: .9rem; margin-top: 3rem; }
+  :root{
+    color-scheme: light dark;
+    --bg:#f4f7f4; --bg-2:#e9f0eb; --card:#ffffff; --ink:#15251f; --ink-2:#4a5b54; --muted:#6c7c75;
+    --line:#dde6e0; --accent:#08764e; --on-accent:#ffffff; --mint:#a9f1d1; --deep-1:#0b4a35; --deep-2:#052219;
+    --shadow:0 28px 60px -30px rgba(5,34,25,.45);
+    --round:ui-rounded,"SF Pro Rounded",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    /* L'écran de démonstration suit le thème, comme l'app. */
+    --p-bg:#f4f7f4; --p-card:#ffffff; --p-ink:#15251f; --p-ink-2:#4a5b54; --p-line:#dde6e0; --p-btn:#08764e; --p-on-btn:#ffffff;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#0c1311; --bg-2:#111a17; --card:#141e1b; --ink:#eef5f1; --ink-2:#b3c2bb; --muted:#8a9a93;
+           --line:#22302b; --accent:#a9f1d1; --on-accent:#052219;
+           --shadow:0 28px 60px -30px rgba(0,0,0,.85);
+           --p-bg:#0c1311; --p-card:#151f1c; --p-ink:#eef5f1; --p-ink-2:#b3c2bb; --p-line:#24332d; --p-btn:#a9f1d1; --p-on-btn:#052219; }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  a{color:var(--accent)}
+  .wrap{max-width:68rem;margin:0 auto;padding:0 1.25rem}
+  .hl{color:var(--accent)}
+
+  /* Barre du haut */
+  nav{position:sticky;top:0;z-index:20;backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);
+    background:color-mix(in srgb,var(--bg) 78%,transparent);border-bottom:1px solid color-mix(in srgb,var(--line) 70%,transparent)}
+  nav .wrap{display:flex;align-items:center;gap:1.5rem;height:3.75rem}
+  .brand{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.1rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+  .brand img{width:32px;height:32px;border-radius:8px}
+  nav .links{display:flex;gap:1.4rem;margin-left:auto}
+  nav .links a{color:var(--ink-2);text-decoration:none;font-size:.94rem;font-weight:550}
+  nav .links a:hover{color:var(--ink)}
+  .btn{display:inline-flex;align-items:center;gap:.55rem;background:var(--accent);color:var(--on-accent);text-decoration:none;
+    font-weight:700;border-radius:999px;padding:.85rem 1.55rem;font-size:1rem;
+    box-shadow:0 14px 30px -16px color-mix(in srgb,var(--accent) 80%,transparent);transition:transform .2s ease, box-shadow .2s ease}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 20px 36px -16px color-mix(in srgb,var(--accent) 90%,transparent)}
+  .btn svg{width:1.15em;height:1.15em;fill:currentColor}
+  .btn.small{padding:.5rem 1.05rem;font-size:.9rem;box-shadow:none}
+
+  /* Ouverture */
+  .hero{position:relative;padding:4.5rem 0 5rem}
+  .hero::before{content:"";position:absolute;inset:-12rem -20% auto;height:44rem;z-index:-1;
+    background:radial-gradient(42rem 26rem at 78% 30%,color-mix(in srgb,var(--mint) 38%,transparent),transparent 70%),
+               radial-gradient(34rem 22rem at 10% 10%,color-mix(in srgb,var(--accent) 14%,transparent),transparent 70%)}
+  @media (prefers-color-scheme: dark){
+    .hero::before{background:radial-gradient(42rem 26rem at 78% 30%,rgba(11,74,53,.75),transparent 70%),
+               radial-gradient(34rem 22rem at 10% 10%,rgba(169,241,209,.08),transparent 70%)}
+  }
+  .hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+  .eyebrow{display:inline-block;font-size:.82rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+  h1{font-size:clamp(2.4rem,5.6vw,4.1rem);line-height:1.03;letter-spacing:-.04em;margin:0 0 1.25rem;font-weight:850}
+  h1 .eq{display:block;white-space:nowrap}
+  .lead{font-size:1.2rem;color:var(--ink-2);max-width:31rem;margin:0 0 2rem}
+  .meta{margin-top:1rem;color:var(--muted);font-size:.9rem}
+
+  /* Démonstration vivante : l'onglet Nutrition, reproduit et animé. */
+  .stage{position:relative;justify-self:center;width:min(58%,18.5rem);aspect-ratio:1206/2622;container-type:inline-size}
+  .phone{position:absolute;inset:0;border-radius:13cqw;overflow:hidden;background:var(--p-bg);color:var(--p-ink);
+    box-shadow:0 0 0 2.6cqw #0b0f0e,0 0 0 3cqw #39413e,var(--shadow)}
+  .island{position:absolute;top:3.1cqw;left:50%;transform:translateX(-50%);width:31%;height:8.5cqw;background:#000;border-radius:999px;z-index:3}
+  @media (prefers-color-scheme: dark){ .island{box-shadow:0 0 0 1.5px rgba(255,255,255,.16)} }
+  .app{position:absolute;inset:0;padding:17cqw 4.6cqw 0;display:flex;flex-direction:column;gap:3cqw;font-size:4cqw}
+  .app .sb{position:absolute;top:5.2cqw;left:11cqw;font:650 4.3cqw/1 -apple-system,sans-serif}
+  .app h4{margin:0;font-size:8.2cqw;letter-spacing:-.03em;font-weight:800;line-height:1.1}
+  .day{display:flex;align-items:center;justify-content:space-between;font-weight:700;font-size:4.2cqw}
+  .day i{width:10cqw;height:10cqw;border-radius:50%;background:var(--p-card);display:grid;place-items:center;font-style:normal;
+    color:var(--p-ink-2);box-shadow:0 0 0 1px var(--p-line);font-size:5cqw}
+  .day i:last-child{opacity:.4}
+  .kcal{border-radius:6cqw;padding:5cqw 4.6cqw;color:#eef5f1;
+    background:radial-gradient(120% 90% at 100% 0%,#2a6350,transparent 60%),linear-gradient(160deg,#0b4a35,#052219)}
+  .kcal .top{display:flex;align-items:center;gap:4cqw}
+  .ring{position:relative;flex:0 0 22cqw;height:22cqw}
+  .ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+  .ring circle{fill:none;stroke-width:9;stroke-linecap:round}
+  .ring .trk{stroke:rgba(255,255,255,.14)}
+  .ring .val{stroke:#a9f1d1;stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset .9s cubic-bezier(.2,.7,.2,1)}
+  .ring b{position:absolute;inset:0;display:grid;place-items:center;font:750 4.6cqw/1 var(--round);font-variant-numeric:tabular-nums}
+  .eaten{font:800 9cqw/1 var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+  .eaten small{font:500 4cqw/1 -apple-system,sans-serif;color:rgba(238,245,241,.7);letter-spacing:0}
+  .left{margin-top:1.8cqw;font-size:3.8cqw;color:rgba(238,245,241,.82)}
+  .macros{display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw;margin-top:5cqw;text-align:center}
+  .macros b{display:block;font:750 4.8cqw/1.1 var(--round);font-variant-numeric:tabular-nums}
+  .macros small{display:block;font-size:3.4cqw;color:rgba(238,245,241,.7)}
+  .macros u{display:block;height:1cqw;border-radius:99px;background:rgba(255,255,255,.14);margin-top:1.8cqw;overflow:hidden;text-decoration:none}
+  .macros u s{display:block;height:100%;width:0;border-radius:99px;transition:width .9s cubic-bezier(.2,.7,.2,1)}
+  .add{border-radius:4.6cqw;background:var(--p-btn);color:var(--p-on-btn);font-weight:700;text-align:center;padding:3.6cqw;font-size:4.4cqw}
+  .meals{display:grid;gap:2.2cqw}
+  .meal{display:flex;justify-content:space-between;align-items:center;background:var(--p-card);border-radius:4cqw;padding:3.4cqw 4cqw;
+    box-shadow:0 0 0 1px var(--p-line);font-weight:650;font-size:3.9cqw;transition:opacity .5s ease, transform .5s ease, box-shadow .5s ease}
+  .meal span{font-weight:500;color:var(--p-ink-2);font-variant-numeric:tabular-nums}
+  .meal.off{opacity:.36}
+  .meal.now{transform:scale(1.025);box-shadow:0 0 0 1.5px var(--p-btn)}
+  .tabs{position:absolute;left:5cqw;right:5cqw;bottom:4.5cqw;height:16cqw;border-radius:99px;display:flex;align-items:center;justify-content:space-around;
+    background:color-mix(in srgb,var(--p-card) 86%,transparent);box-shadow:0 0 0 1px var(--p-line),0 6cqw 10cqw -6cqw rgba(0,0,0,.25);font-size:2.7cqw;font-weight:600}
+  .tabs span{display:grid;justify-items:center;gap:1cqw;padding:1.6cqw 3.4cqw;border-radius:99px}
+  .tabs svg{width:5.6cqw;height:5.6cqw;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tabs .on{color:var(--p-btn);background:color-mix(in srgb,var(--p-ink) 9%,transparent)}
+  .float{position:absolute;border-radius:6cqw;color:#eef5f1;box-shadow:var(--shadow);animation:bob 7s ease-in-out infinite;
+    background:linear-gradient(160deg,#0b4a35,#052219);padding:4cqw;display:flex;flex-direction:column;justify-content:flex-end}
+  .w1{width:42cqw;height:42cqw;left:-38cqw;top:11%;border:1px solid rgba(255,255,255,.08)}
+  .w2{width:44cqw;right:-38cqw;bottom:19%;animation-delay:-3.5s;background:var(--card);color:var(--ink);border:1px solid var(--line)}
+  .float em{font-style:normal;font-size:3.2cqw;font-weight:700;letter-spacing:.04em;text-transform:uppercase;opacity:.75;margin-bottom:auto}
+  .w2 em{margin-bottom:2cqw;color:var(--accent);opacity:1}
+  .float b{font:800 9cqw/1 var(--round);color:#a9f1d1;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .w2 b{font:800 5.6cqw/1.15 -apple-system,sans-serif;color:var(--ink)}
+  .float small{font-size:3.4cqw;opacity:.85;margin-top:1cqw}
+  @keyframes bob{50%{transform:translateY(-10px)}}
+
+  /* Sections */
+  section{padding:4.5rem 0}
+  .head{max-width:38rem;margin:0 0 2.5rem}
+  h2{font-size:clamp(1.8rem,3.6vw,2.6rem);letter-spacing:-.035em;line-height:1.1;margin:0 0 .8rem;font-weight:820}
+  .head p,.sub{color:var(--ink-2);font-size:1.08rem;margin:0}
+  .tint{background:var(--bg-2)}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+  .feat{background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:1.5rem;transition:transform .25s ease, box-shadow .25s ease}
+  .feat:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .feat .ic{width:2.75rem;height:2.75rem;border-radius:.85rem;display:grid;place-items:center;margin-bottom:1rem;
+    background:color-mix(in srgb,var(--accent) 13%,transparent)}
+  .feat .ic svg{width:1.4rem;height:1.4rem;stroke:var(--accent);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+  .feat h3{font-size:1.08rem;margin:0 0 .35rem;letter-spacing:-.01em}
+  .feat p{margin:0;color:var(--ink-2);font-size:.95rem}
+
+  /* L'équation */
+  .equation{display:grid;gap:.7rem;margin-top:1.8rem;max-width:27rem}
+  .term{display:grid;grid-template-columns:7.2rem 1fr;gap:1rem;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:1.2rem;padding:1rem 1.2rem}
+  .term b{font:800 1.9rem/1 var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
+  .term span{display:block;font-weight:700}
+  .term p{margin:.15rem 0 0;color:var(--ink-2);font-size:.92rem}
+  .term.result{border:0;color:#eef5f1;background:linear-gradient(160deg,var(--deep-1),var(--deep-2));box-shadow:var(--shadow)}
+  .term.result b{color:#a9f1d1}
+  .term.result p{color:rgba(238,245,241,.78)}
+  .op{font:800 1.4rem/1 var(--round);color:var(--muted);padding-left:1.3rem}
+
+  /* Captures de l'app, dans un cadre d'iPhone avec l'îlot */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center}
+  .duo.flip .shots{order:2}
+  .shots{display:flex;gap:1.7rem;justify-content:center;align-items:flex-end;padding:1.6rem .8rem .6rem}
+  .device{position:relative;width:44%;aspect-ratio:1206/2622;container-type:inline-size}
+  .device picture{display:block;height:100%}
+  .device img{width:100%;height:100%;object-fit:cover;border-radius:13cqw;background:#000;
+    box-shadow:0 0 0 2.6cqw #0b0f0e,0 0 0 3cqw #39413e,var(--shadow)}
+  .device::after{content:"";position:absolute;top:3.1cqw;left:50%;transform:translateX(-50%);width:31%;height:8.5cqw;background:#000;border-radius:999px}
+  /* En sombre, l'îlot noir se confondrait avec l'écran : un liseré discret le garde visible. */
+  @media (prefers-color-scheme: dark){ .device::after{box-shadow:0 0 0 1.5px rgba(255,255,255,.16)} }
+  .shots .device:last-child:not(:first-child){transform:translateY(-1.6rem)}
+  .shots.solo .device{width:min(62%,16.5rem)}
+  .list{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;gap:.9rem}
+  .list li{display:flex;gap:.8rem;color:var(--ink-2)}
+  .list li::before{content:"";flex:0 0 .55rem;height:.55rem;margin-top:.55rem;border-radius:50%;background:var(--accent)}
+  .list b{color:var(--ink)}
+  .ills{display:flex;gap:.8rem;margin-top:3rem;overflow-x:auto;padding-bottom:.4rem;scrollbar-width:none}
+  .ills::-webkit-scrollbar{display:none}
+  .ills figure{flex:0 0 auto;width:9.5rem;margin:0;background:#fff;border-radius:1.2rem;padding:.6rem .6rem .7rem;border:1px solid var(--line)}
+  /* Les disques sont dessinés en jaune citron ; l'app les amène au vert menthe par une rotation de teinte de 78°. */
+  .ills img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;filter:hue-rotate(78deg)}
+  .ills figcaption{text-align:center;font-size:.82rem;font-weight:650;color:#15251f;margin-top:.2rem}
+
+  /* Gratuit et Premium */
+  .plans{display:grid;grid-template-columns:1fr 1fr;gap:1rem;max-width:50rem}
+  .plan{background:var(--card);border:1px solid var(--line);border-radius:1.5rem;padding:1.7rem}
+  .plan.plus{border:0;color:#eef5f1;background:radial-gradient(120% 90% at 100% 0%,#1d5b47,transparent 60%),linear-gradient(160deg,#0b4a35,#052219);box-shadow:var(--shadow)}
+  .plan h3{margin:0 0 .2rem;font-size:1.25rem}
+  .plan .price{font:800 1.75rem/1.2 var(--round);margin:.2rem 0 1rem}
+  .plan.plus .price{color:#a9f1d1}
+  .plan ul{margin:0;padding:0;list-style:none;display:grid;gap:.55rem;font-size:.96rem}
+  .plan li{display:flex;gap:.55rem}
+  .plan li::before{content:"✓";font-weight:800;color:var(--accent)}
+  .plan.plus li::before{color:#a9f1d1}
+  .plan:not(.plus) li{color:var(--ink-2)}
+  .plan .also{margin:0 0 .7rem;font-size:.9rem;color:rgba(238,245,241,.75)}
+  .note{color:var(--muted);font-size:.9rem;max-width:50rem;margin:1.2rem 0 0}
+
+  /* Questions */
+  .faq{max-width:46rem}
+  details{background:var(--card);border:1px solid var(--line);border-radius:1.1rem;padding:1rem 1.2rem;margin-bottom:.6rem}
+  summary{cursor:pointer;font-weight:650;list-style:none;display:flex;justify-content:space-between;gap:1rem}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";color:var(--accent);font-weight:800;font-size:1.2rem;line-height:1.2}
+  details[open] summary::after{content:"–"}
+  details p{color:var(--ink-2);margin:.7rem 0 0;font-size:.97rem}
+
+  .closing{text-align:center;padding:5rem 0}
+  .closing img{width:84px;height:84px;border-radius:20px;margin:0 auto 1.4rem;box-shadow:var(--shadow)}
+  .closing p{color:var(--ink-2);max-width:30rem;margin:0 auto 1.8rem;font-size:1.08rem}
+  .help{background:var(--card);border:1px solid var(--line);border-radius:1.4rem;padding:1.5rem;max-width:46rem;color:var(--ink-2)}
+  .help p{margin:0 0 .5rem}.help p:last-child{margin:0}
+  footer{border-top:1px solid var(--line);padding:2rem 0 3rem;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:1.25rem;align-items:center}
+  footer a{color:var(--muted)}
+  footer .sp{flex:1}
+
+  .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s ease, transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .hero{padding:2.5rem 0 3.5rem}
+    .hero .wrap,.duo{grid-template-columns:1fr;gap:2.5rem}
+    .duo.flip .shots{order:0}
+    .stage{width:min(54%,15rem);margin-top:.5rem}
+    .grid{grid-template-columns:1fr 1fr}
+    nav .links{display:none}
+    nav .btn{margin-left:auto}
+    section{padding:3.2rem 0}
+    .equation{max-width:none}
+  }
+  @media (max-width:560px){
+    .grid,.plans{grid-template-columns:1fr}
+    h1 .eq{white-space:normal}
+    .shots{gap:1.2rem;padding-inline:.4rem}
+    .device{width:46%}
+    .term{grid-template-columns:6.2rem 1fr}
+    .term b{font-size:1.6rem}
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto}
+    .float{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+    .feat,.btn,.meal,.ring .val,.macros u s{transition:none}
+  }
 </style>
 </head>
 <body>
-<h1>Nutri-Fit</h1>
-<p class="tagline">Mangé − Dépensé = Balance. Votre effort guide votre alimentation.</p>
 
-<p>Nutri-Fit relie vos séances de musculation et votre alimentation dans un bilan
-énergétique unique : séances guidées avec minuteur de repos (iPhone, Apple Watch, écran
-verrouillé), journal alimentaire avec scan de codes-barres et analyse de repas sur
-l'appareil, suivi du poids, et synchronisation Apple Santé.</p>
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="assets/icon.png" alt="" width="32" height="32">Nutri-Fit</a>
+    <div class="links">
+      <a href="#balance">La balance</a>
+      <a href="#seances">Séances</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#premium">Premium</a>
+      <a href="#questions">Questions</a>
+    </div>
+    <a class="btn small" href="https://apps.apple.com/fr/app/nutri-fit-musculation/id6804208154">Télécharger</a>
+  </div>
+</nav>
 
-<ul>
-  <li>Sans compte, sans publicité, sans suivi publicitaire</li>
-  <li>Vos données restent sur votre appareil</li>
-  <li>Coach de progression : records, plateaux, suggestions de charge</li>
-</ul>
+<header class="hero" id="top">
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Musculation et nutrition</span>
+      <h1>Mangé − dépensé <span class="eq">= <span class="hl">balance.</span></span></h1>
+      <p class="lead">Nutri-Fit relie vos séances de musculation et votre assiette en un seul chiffre, lisible d'un regard sur votre iPhone et votre Apple&nbsp;Watch.</p>
+      <a class="btn" href="https://apps.apple.com/fr/app/nutri-fit-musculation/id6804208154">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.19-1.73-1.36-.14-2.65.8-3.34.8-.69 0-1.75-.78-2.88-.76-1.48.02-2.85.86-3.61 2.19-1.54 2.67-.39 6.62 1.11 8.79.73 1.06 1.6 2.25 2.75 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.19-.02 1.94-1.08 2.66-2.15.84-1.23 1.19-2.42 1.21-2.48-.03-.01-2.32-.89-2.34-3.54ZM14.2 6.1c.61-.74 1.02-1.77.91-2.8-.88.04-1.94.59-2.57 1.33-.56.65-1.06 1.7-.93 2.7.98.08 1.98-.5 2.59-1.23Z"/></svg>
+        Télécharger sur l'App&nbsp;Store
+      </a>
+      <p class="meta">Gratuit, Premium facultatif · iPhone et Apple&nbsp;Watch · iOS&nbsp;17 ou version ultérieure</p>
+    </div>
 
-<p class="links">
-  <a href="privacy/">Politique de confidentialité</a> ·
-  <a href="mailto:abdelhafid.younes@gmail.com">Assistance</a>
-</p>
+    <div class="stage" role="img" aria-label="Démonstration animée : l'onglet Nutrition se remplit au fil des repas de la journée, et la balance du jour se met à jour.">
+      <div class="phone" aria-hidden="true">
+        <div class="island"></div>
+        <div class="app">
+          <span class="sb">9:41</span>
+          <h4>Nutrition</h4>
+          <div class="day"><i>‹</i>Aujourd'hui<i>›</i></div>
+          <div class="kcal">
+            <div class="top">
+              <div class="ring">
+                <svg viewBox="0 0 100 100"><circle class="trk" cx="50" cy="50" r="42"/><circle class="val" id="ring" cx="50" cy="50" r="42"/></svg>
+                <b id="pct">0&nbsp;%</b>
+              </div>
+              <div>
+                <div class="eaten"><span id="eaten">0</span> <small>/ 2668 kcal</small></div>
+                <div class="left" id="left">Il vous reste 2668 kcal.</div>
+              </div>
+            </div>
+            <div class="macros">
+              <div><b id="p">0 g</b><small>Protéines</small><u><s id="pb" style="background:#a9f1d1"></s></u></div>
+              <div><b id="g">0 g</b><small>Glucides</small><u><s id="gb" style="background:#8fc7ee"></s></u></div>
+              <div><b id="l">0 g</b><small>Lipides</small><u><s id="lb" style="background:#ffb39b"></s></u></div>
+            </div>
+          </div>
+          <div class="add">+ Ajouter un aliment</div>
+          <div class="meals" id="meals">
+            <div class="meal off">Petit-déjeuner <span>334 kcal</span></div>
+            <div class="meal off">Déjeuner <span>482 kcal</span></div>
+            <div class="meal off">Collations <span>356 kcal</span></div>
+            <div class="meal off">Dîner <span>1167 kcal</span></div>
+          </div>
+          <div class="tabs">
+            <span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5V12l6 6"/></svg>Bilan</span>
+            <span><svg viewBox="0 0 24 24"><path d="M3 12h18M6.5 7.5v9M17.5 7.5v9M3.5 9.5v5M20.5 9.5v5"/></svg>Séance</span>
+            <span class="on"><svg viewBox="0 0 24 24"><path d="M7 3v8M4.5 3v4.5a2.5 2.5 0 0 0 5 0V3M7 11v10M16.5 3c-1.8 1.6-2.5 4-2.5 7h2.5V3Zm0 7v11"/></svg>Nutrition</span>
+            <span><svg viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 12h3M11 12h9M4 17h8M16 17h4"/><circle cx="16" cy="7" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="14" cy="17" r="2"/></svg>Réglages</span>
+          </div>
+        </div>
+      </div>
+      <div class="float w1" aria-hidden="true"><em>Balance du jour</em><b id="bal">−2668</b><small>kcal · mangé − dépensé</small></div>
+      <div class="float w2" aria-hidden="true"><em>Séance du jour</em><b>Full body</b><small>0 / 15 séries</small></div>
+    </div>
+  </div>
+</header>
 
-<p class="muted">© 2026 Abdelhafid Younes</p>
+<main>
+
+<section id="balance">
+  <div class="wrap duo">
+    <div class="reveal">
+      <h2>Un seul chiffre pour savoir où vous en êtes.</h2>
+      <p class="sub">Beaucoup d'apps suivent le sport d'un côté et l'alimentation de l'autre. Nutri-Fit fait le calcul pour vous, par jour, par semaine ou par mois.</p>
+      <div class="equation">
+        <div class="term"><b>2&nbsp;020</b><div><span>Mangé</span><p>Votre journal alimentaire.</p></div></div>
+        <div class="op" aria-hidden="true">−</div>
+        <div class="term"><b>2&nbsp;668</b><div><span>Dépensé</span><p>Votre dépense estimée, calories actives d'Apple&nbsp;Santé comprises si vous l'autorisez.</p></div></div>
+        <div class="op" aria-hidden="true">=</div>
+        <div class="term result"><b>−648</b><div><span>Balance</span><p>Déficit ou surplus estimé, en kilocalories.</p></div></div>
+      </div>
+    </div>
+    <div class="shots solo reveal">
+      <div class="device"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/bilan-sombre.jpg">
+        <img src="assets/bilan-clair.jpg" alt="L'onglet Bilan de Nutri-Fit : balance énergétique de −648 kcal, 2020 kcal consommées, 2668 kcal dépensées, et l'équilibre sur sept jours" loading="lazy" width="720" height="1565">
+      </picture></div>
+    </div>
+  </div>
+</section>
+
+<section id="seances" class="tint">
+  <div class="wrap duo">
+    <div class="shots reveal">
+      <div class="device"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/seance-sombre.jpg">
+        <img src="assets/seance-clair.jpg" alt="L'onglet Séance : le programme Full body, 6 exercices et 15 séries, avec le squat barre en premier exercice" loading="lazy" width="720" height="1565">
+      </picture></div>
+      <div class="device"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/serie-sombre.jpg">
+        <img src="assets/serie-clair.jpg" alt="Une série en cours : squat barre, rappel de la dernière séance, conseil de charge, poids et répétitions à ajuster" loading="lazy" width="720" height="1565">
+      </picture></div>
+    </div>
+    <div class="reveal">
+      <h2>Des séances guidées, série après série.</h2>
+      <p class="sub">Partez d'un programme prêt à l'emploi ou du vôtre, puis laissez-vous porter.</p>
+      <ul class="list">
+        <li><span><b>La dernière séance sous les yeux.</b> Charge et répétitions de la fois précédente sont rappelées, et s'ajustent d'une touche.</span></li>
+        <li><span><b>Un minuteur de repos qui vous suit.</b> Il reste visible sur l'écran verrouillé et sur l'Apple&nbsp;Watch pendant que vous récupérez.</span></li>
+        <li><span><b>Chaque exercice illustré.</b> Vous savez toujours quel mouvement vient ensuite.</span></li>
+        <li><span><b>Vos records, gardés pour vous.</b> Ils font partie de la version gratuite.</span></li>
+        <li><span><b>Un résumé à la fin.</b> Ce que vous venez de faire, comparé à la séance précédente.</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="ills reveal" aria-label="Quelques illustrations d'exercices de l'app">
+      <figure><img src="assets/ex-squat.jpg" alt="Illustration du squat barre" loading="lazy" width="360" height="360"><figcaption>Squat barre</figcaption></figure>
+      <figure><img src="assets/ex-bench.jpg" alt="Illustration du développé couché" loading="lazy" width="360" height="360"><figcaption>Développé couché</figcaption></figure>
+      <figure><img src="assets/ex-deadlift.jpg" alt="Illustration du soulevé de terre" loading="lazy" width="360" height="360"><figcaption>Soulevé de terre</figcaption></figure>
+      <figure><img src="assets/ex-pullups.jpg" alt="Illustration des tractions" loading="lazy" width="360" height="360"><figcaption>Tractions</figcaption></figure>
+      <figure><img src="assets/ex-ohp.jpg" alt="Illustration du développé militaire" loading="lazy" width="360" height="360"><figcaption>Développé militaire</figcaption></figure>
+      <figure><img src="assets/ex-row.jpg" alt="Illustration du rowing barre" loading="lazy" width="360" height="360"><figcaption>Rowing barre</figcaption></figure>
+      <figure><img src="assets/ex-curl.jpg" alt="Illustration du curl biceps barre" loading="lazy" width="360" height="360"><figcaption>Curl biceps barre</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="nutrition">
+  <div class="wrap duo">
+    <div class="reveal">
+      <h2>Un journal alimentaire qui va vite.</h2>
+      <p class="sub">Noter un repas ne devrait pas prendre plus de temps que de le manger.</p>
+      <ul class="list">
+        <li><span><b>Scannez un code-barres.</b> Les valeurs nutritionnelles viennent de la base ouverte Open&nbsp;Food&nbsp;Facts.</span></li>
+        <li><span><b>Un catalogue intégré.</b> Les aliments courants sont dans l'app, illustrés, disponibles sans connexion.</span></li>
+        <li><span><b>Vos aliments récents à portée de main.</b> Ce que vous mangez souvent se rajoute en quelques touches.</span></li>
+        <li><span><b>Calories et macronutriments.</b> Protéines, glucides et lipides face à vos objectifs, avec l'hydratation et le poids.</span></li>
+        <li><span><b>Apple Santé, si vous le souhaitez.</b> Séances, repas, eau et pesées peuvent y être enregistrés.</span></li>
+      </ul>
+    </div>
+    <div class="shots reveal">
+      <div class="device"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/nutrition-sombre.jpg">
+        <img src="assets/nutrition-clair.jpg" alt="L'onglet Nutrition : 2339 kcal sur 2668, anneau de progression, macronutriments et repas de la journée" loading="lazy" width="720" height="1565">
+      </picture></div>
+      <div class="device"><picture>
+        <source media="(prefers-color-scheme: dark)" srcset="assets/ajout-sombre.jpg">
+        <img src="assets/ajout-clair.jpg" alt="L'écran Ajouter un aliment : recherche, lecteur de code-barres et aliments récents illustrés" loading="lazy" width="720" height="1565">
+      </picture></div>
+    </div>
+  </div>
+</section>
+
+<section id="partout" class="tint">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Sous vos yeux, sans ouvrir l'app.</h2>
+      <p>Votre balance et votre séance du jour s'installent là où vous regardez déjà.</p>
+    </div>
+    <div class="grid">
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="6.5" y="6" width="11" height="12" rx="3"/><path d="M9 6 9.6 2.5h4.8L15 6M9 18l.6 3.5h4.8L15 18M12 10v2.4l1.6 1"/></svg></div>
+        <h3>Apple Watch</h3>
+        <p>Une app dédiée pour suivre la séance au poignet, et une complication «&nbsp;Bilan Nutri-Fit&nbsp;» pour vos cadrans.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2.2"/><rect x="13" y="3" width="8" height="8" rx="2.2"/><rect x="3" y="13" width="18" height="8" rx="2.2"/></svg></div>
+        <h3>Widgets</h3>
+        <p>«&nbsp;Balance du jour&nbsp;» et «&nbsp;Séance du jour&nbsp;», sur l'écran d'accueil comme sur l'écran verrouillé.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></div>
+        <h3>Activité en direct</h3>
+        <p>Le décompte du repos et l'exercice à suivre restent affichés sur l'écran verrouillé pendant la séance.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 8 3 8H3s3-1 3-8M10 20a2 2 0 0 0 4 0"/></svg></div>
+        <h3>Rappels facultatifs</h3>
+        <p>Séance du jour, pesée hebdomadaire, bilan du soir&nbsp;: chacun s'active séparément, aucun ne l'est par défaut.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></div>
+        <h3>Bilan masqué sur demande</h3>
+        <p>Un réglage masque votre bilan calorique dans les widgets de l'écran verrouillé.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 3.8 5.6 3.8 9S14.6 18.4 12 21c-2.6-2.6-3.8-5.6-3.8-9S9.4 5.6 12 3Z"/></svg></div>
+        <h3>Six langues</h3>
+        <p>Français, anglais, espagnol, italien, allemand et portugais.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="vie-privee">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Vos données restent à vous.</h2>
+      <p>Pas de compte à créer, pas de publicité, pas de suivi publicitaire.</p>
+    </div>
+    <div class="grid">
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2.5" width="12" height="19" rx="3"/><path d="M10.5 18.5h3"/></svg></div>
+        <h3>Sur votre appareil</h3>
+        <p>Repas, séances, programmes et pesées sont enregistrés sur votre iPhone, pas sur un serveur Nutri-Fit.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 12v7a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-7M12 15V3M8 7l4-4 4 4"/></svg></div>
+        <h3>Export et sauvegardes</h3>
+        <p>Exportez vos données, y compris en CSV pour un tableur, et restaurez une sauvegarde locale quand vous le voulez. C'est gratuit.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.1 7.5 9.5 4.4-1.4 7.5-4.9 7.5-9.5V6Z"/><path d="m9 12 2.2 2.2L15.2 10"/></svg></div>
+        <h3>Statistiques facultatives</h3>
+        <p>Le partage de statistiques d'usage et de diagnostics est désactivé par défaut. L'app vous pose la question une fois, et un réglage permet de changer d'avis.</p>
+      </div>
+    </div>
+    <p class="note reveal">Le détail, prestataires compris, est dans la <a href="privacy/">politique de confidentialité</a>.</p>
+  </div>
+</section>
+
+<section id="premium" class="tint">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>L'essentiel est gratuit. Premium ajoute l'analyse.</h2>
+      <p>Ce que vous enregistrez reste accessible sans payer, sans limite de temps. Premium s'adresse à celles et ceux qui veulent comprendre leur progression.</p>
+    </div>
+    <div class="plans reveal">
+      <div class="plan">
+        <h3>Nutri-Fit</h3>
+        <div class="price">Gratuit</div>
+        <ul>
+          <li>Vos séances guidées</li>
+          <li>Votre journal alimentaire</li>
+          <li>La balance énergétique</li>
+          <li>L'Apple Watch</li>
+          <li>Vos records</li>
+          <li>L'export de vos données</li>
+        </ul>
+      </div>
+      <div class="plan plus">
+        <h3>Nutri-Fit Premium</h3>
+        <div class="price">Abonnement</div>
+        <p class="also">Tout ce qui est gratuit, et en plus&nbsp;:</p>
+        <ul>
+          <li>Coach quotidien complet&nbsp;: tous vos conseils du jour, pas seulement le premier</li>
+          <li>Bilan de la semaine</li>
+          <li>Courbes par exercice et repérage des plateaux</li>
+          <li>Équilibre musculaire</li>
+          <li>Repas ajouté depuis une photo ou une phrase</li>
+          <li>Repas favoris</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note reveal">Premium est un abonnement mensuel ou annuel. Son prix s'affiche dans l'app, dans votre monnaie&nbsp;: il varie selon le pays. L'abonnement se gère et se résilie depuis votre compte Apple.</p>
+  </div>
+</section>
+
+<section id="questions">
+  <div class="wrap">
+    <div class="head reveal"><h2>Questions fréquentes</h2></div>
+    <div class="faq reveal">
+      <details>
+        <summary>Nutri-Fit est-elle gratuite&nbsp;?</summary>
+        <p>Oui. Vos séances, votre journal alimentaire, la balance, l'Apple&nbsp;Watch, vos records et l'export de vos données sont gratuits, sans limite de temps. Nutri-Fit Premium est un abonnement facultatif qui ajoute les analyses&nbsp;: coach quotidien complet, bilan de la semaine, courbes et plateaux, équilibre musculaire, ajout d'un repas par photo ou par phrase et repas favoris.</p>
+      </details>
+      <details>
+        <summary>Comment la balance est-elle calculée&nbsp;?</summary>
+        <p>C'est la différence entre ce que vous avez mangé, d'après votre journal, et votre dépense estimée de la journée. La dépense tient compte de votre profil et, si vous l'autorisez, des calories actives lues dans Apple&nbsp;Santé. Tant qu'une journée n'est pas confirmée comme complète, la balance est indiquée «&nbsp;À confirmer&nbsp;» plutôt que d'afficher un chiffre trompeur. Il s'agit d'une estimation, pas d'une mesure médicale.</p>
+      </details>
+      <details>
+        <summary>D'où viennent les valeurs nutritionnelles&nbsp;?</summary>
+        <p>D'un catalogue intégré à l'app pour les aliments courants, et de la base ouverte <a href="https://world.openfoodfacts.org" rel="noopener">Open&nbsp;Food&nbsp;Facts</a> pour les recherches en ligne et les codes-barres. Sans connexion, le catalogue intégré et vos aliments récents restent disponibles.</p>
+      </details>
+      <details>
+        <summary>Ai-je besoin d'une Apple Watch&nbsp;?</summary>
+        <p>Non. Tout fonctionne sur l'iPhone seul. La montre ajoute le suivi de la séance au poignet et une complication pour vos cadrans.</p>
+      </details>
+      <details>
+        <summary>Nutri-Fit existe-t-elle sur iPad ou sur Mac&nbsp;?</summary>
+        <p>Nutri-Fit est conçue pour l'iPhone, avec iOS&nbsp;17 ou une version ultérieure, et pour l'Apple&nbsp;Watch.</p>
+      </details>
+      <details>
+        <summary>J'ai changé d'iPhone, comment retrouver Premium&nbsp;?</summary>
+        <p>Ouvrez les Réglages de Nutri-Fit, puis Nutri-Fit Premium, et touchez <em>Restaurer mes achats</em>. L'abonnement est rattaché à votre compte Apple.</p>
+      </details>
+      <details>
+        <summary>Comment résilier l'abonnement&nbsp;?</summary>
+        <p>Depuis l'écran Nutri-Fit Premium, touchez <em>Gérer mon abonnement</em>, ou passez par l'app Réglages de l'iPhone, votre nom, puis Abonnements. Supprimer l'app ne résilie pas l'abonnement.</p>
+      </details>
+      <details>
+        <summary>Est-ce que mes données partent quelque part&nbsp;?</summary>
+        <p>Vos repas, séances et pesées restent sur votre appareil. Les recherches d'aliments et les codes-barres sont envoyés à Open&nbsp;Food&nbsp;Facts. L'achat et l'état de l'abonnement sont vérifiés par RevenueCat avec un identifiant aléatoire. Et seulement si vous l'acceptez, Nutri-Fit envoie des statistiques d'usage via PostHog et des diagnostics de plantage via Sentry, tous deux hébergés dans l'Union européenne, sans le contenu de vos repas, de vos séances ni de vos mesures. Le détail est dans la <a href="privacy/">politique de confidentialité</a>.</p>
+      </details>
+      <details>
+        <summary>Comment sauvegarder ou exporter mes données&nbsp;?</summary>
+        <p>Dans Réglages, Données et confidentialité, puis Sauvegarde &amp; restauration&nbsp;: vous pouvez exporter une copie de vos données, les exporter en CSV pour un tableur, et restaurer une sauvegarde locale.</p>
+      </details>
+      <details>
+        <summary>Nutri-Fit remplace-t-elle un suivi médical&nbsp;?</summary>
+        <p>Non. Les calories, la dépense et la balance sont des estimations destinées à vous repérer. Pour un objectif de santé, un régime particulier ou une reprise après blessure, demandez l'avis d'un professionnel de santé.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section id="aide" class="tint">
+  <div class="wrap">
+    <div class="head reveal"><h2>Besoin d'aide&nbsp;?</h2></div>
+    <div class="help reveal">
+      <p>Écrivez à <a href="mailto:abdelhafid.younes@gmail.com?subject=Assistance%20Nutri-Fit">abdelhafid.younes@gmail.com</a>.</p>
+      <p>Pour aller plus vite, précisez votre version d'iOS, votre modèle d'iPhone et ce que vous faisiez au moment du problème.</p>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap reveal">
+    <img src="assets/icon.png" alt="Icône de Nutri-Fit" width="84" height="84" loading="lazy">
+    <h2>Votre effort guide <span class="hl">votre assiette.</span></h2>
+    <p>Lancez une première séance, notez un premier repas&nbsp;: la balance fait le reste.</p>
+    <a class="btn" href="https://apps.apple.com/fr/app/nutri-fit-musculation/id6804208154">Télécharger sur l'App&nbsp;Store</a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <a href="privacy/">Politique de confidentialité</a>
+    <a href="mailto:abdelhafid.younes@gmail.com">Contact</a>
+    <span class="sp"></span>
+    <span>© 2026 Abdelhafid Younes</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Démonstration : une journée se remplit, repas après repas, comme dans l'onglet Nutrition.
+  // L'état final reprend la capture de l'app (2339 / 2668 kcal, 151 g · 228 g · 84 g).
+  var SPENT=2668, C=263.9;
+  var steps=[
+    {kcal:0,    p:0,   g:0,   l:0},
+    {kcal:334,  p:18,  g:44,  l:9},
+    {kcal:816,  p:81,  g:96,  l:17},
+    {kcal:1172, p:95,  g:138, l:36},
+    {kcal:2339, p:151, g:228, l:84}
+  ];
+  var goals={p:135,g:366,l:74};
+  var el=function(id){return document.getElementById(id)};
+  var meals=el("meals").children, shown=0;
+  var still=window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function paint(kcal){
+    var k=Math.round(kcal);
+    el("eaten").textContent=k;
+    el("pct").innerHTML=Math.round(k/SPENT*100)+"&nbsp;%";
+    el("left").textContent="Il vous reste "+(SPENT-k)+" kcal.";
+    el("bal").textContent="−"+(SPENT-k);
+  }
+  function show(i,instant){
+    var s=steps[i], from=shown;
+    el("ring").style.strokeDashoffset=C*(1-Math.min(s.kcal/SPENT,1));
+    ["p","g","l"].forEach(function(k){
+      el(k).textContent=s[k]+" g";
+      el(k+"b").style.width=Math.min(100,s[k]/goals[k]*100)+"%";
+    });
+    for(var m=0;m<meals.length;m++){
+      meals[m].classList.toggle("off",m>=i);
+      meals[m].classList.toggle("now",m===i-1 && !instant);
+    }
+    if(instant){ shown=s.kcal; paint(shown); return; }
+    var t0=performance.now();
+    (function roll(t){
+      var k=Math.min(1,(t-t0)/900), e=1-Math.pow(1-k,3);
+      shown=from+(s.kcal-from)*e; paint(shown);
+      if(k<1) requestAnimationFrame(roll);
+    })(t0);
+  }
+  if(still){ show(steps.length-1,true); }
+  else{
+    var i=0; show(0,true);
+    setInterval(function(){
+      if(document.hidden) return;
+      i=(i+1)%steps.length;
+      show(i,i===0);
+    }, 2400);
+  }
+
+  // Apparition douce au défilement.
+  var els=document.querySelectorAll(".reveal");
+  if(!("IntersectionObserver" in window) || still){
+    els.forEach(function(e){e.classList.add("in")}); return;
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } });
+  },{threshold:.12});
+  els.forEach(function(e){io.observe(e)});
+})();
+</script>
 </body>
 </html>

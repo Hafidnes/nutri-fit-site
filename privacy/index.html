@@ -16,7 +16,7 @@
 </head>
 <body>
 <h1>Politique de confidentialité — Nutri-Fit</h1>
-<p class="muted">Dernière mise à jour : 6 septembre 2026</p>
+<p class="muted">Dernière mise à jour : 17 novembre 2026</p>
 
 <p>Nutri-Fit est une application de suivi sportif et nutritionnel conçue pour fonctionner
 sans compte, sans publicité et sans suivi publicitaire. Vos données d'entraînement et
@@ -34,7 +34,7 @@ depuis Réglages → Données et confidentialité.</p>
 <p>Si vous l'autorisez, Nutri-Fit lit vos calories actives et votre poids depuis Apple
 Santé, et peut y écrire vos séances, repas, hydratation et pesées. Ces échanges se font
 via HealthKit, avec les autorisations que vous choisissez. Nutri-Fit ne transmet pas
-les données lues dans Santé à Open Food Facts, Sentry ou PostHog. Leur synchronisation
+les données lues dans Santé à Open Food Facts, Sentry, PostHog ou RevenueCat. Leur synchronisation
 et leur sauvegarde par Apple dépendent de vos réglages Apple Santé et iCloud. Vous pouvez
 révoquer cet accès à tout moment dans Réglages iOS → Santé.</p>
 
@@ -51,23 +51,40 @@ peuvent être recherchés dans Open Food Facts. Les photos et la description com
 ne sont pas envoyées à Open Food Facts.</p>
 
 <h2>Diagnostics et statistiques anonymes</h2>
-<p>Ces envois facultatifs sont <strong>désactivés par défaut</strong> et ne démarrent
-qu'après votre activation dans Réglages → Données et confidentialité.
-Pour corriger les plantages et comprendre quelles fonctionnalités sont utiles,
-Nutri-Fit peut envoyer des rapports de plantage à
-<a href="https://sentry.io/privacy/">Sentry</a> et des événements d'usage anonymes à
-<a href="https://posthog.com/privacy">PostHog</a> (hébergés dans l'Union européenne).
-Ces données ne contiennent <strong>ni donnée de santé, ni identité, ni adresse IP
-exploitée</strong> : uniquement des noms d'actions (par exemple « séance terminée ») et
-des compteurs neutres, non reliés à votre personne. Vous pouvez désactiver cet envoi à
-tout moment dans Réglages → Données et confidentialité → « Diagnostics et statistiques
-anonymes ».</p>
+<p>Ces envois facultatifs sont <strong>désactivés par défaut</strong>. Nutri-Fit vous
+pose la question une fois — « Aider à améliorer Nutri-Fit ? » — et rien ne part tant que
+vous n'avez pas répondu oui. Un seul interrupteur, dans Réglages → Données et
+confidentialité → « Diagnostics et statistiques anonymes », vous permet de changer d'avis
+à tout moment ; il vaut pour les deux services ci-dessous, tous deux hébergés dans
+l'Union européenne.</p>
+<p><strong>Statistiques d'usage — <a href="https://posthog.com/privacy">PostHog</a>.</strong>
+Des noms d'actions pris dans une liste fermée (par exemple « séance terminée » ou
+« aliment ajouté ») et quelques propriétés techniques (source de l'action, version de
+l'app, modèle d'appareil, version d'iOS), rattachés à un identifiant aléatoire propre à
+l'installation. Aucun profil de personne n'est créé ; il n'y a ni capture d'écran, ni
+enregistrement de session.</p>
+<p><strong>Diagnostics de plantage — <a href="https://sentry.io/privacy/">Sentry</a>.</strong>
+Lorsqu'une erreur survient, Nutri-Fit reconstruit un rapport réduit : la version de
+l'app, le type technique de l'erreur et la pile d'appels. Le message d'origine, le
+contexte de l'appareil et les requêtes réseau n'y figurent pas. Sentry reçoit aussi, à
+chaque utilisation, un signal technique indiquant si l'app s'est fermée normalement
+(version de l'app, sans contenu) : il sert à mesurer la part d'utilisations sans plantage.</p>
+<p>Ces envois ne contiennent <strong>ni donnée de santé, ni contenu saisi (repas,
+séances, pesées), ni nom, ni adresse e-mail</strong>, et ne servent jamais à de la
+publicité. Comme pour toute connexion Internet, ces prestataires reçoivent des
+informations techniques de connexion, notamment l'adresse IP.</p>
 
 <h2>Abonnement Premium</h2>
-<p>L'abonnement « Nutri-Fit Premium » est traité intégralement par Apple (App Store).
-Nous n'avons jamais accès à vos informations de paiement. En cas d'achat, un événement
-anonyme mentionnant uniquement la formule choisie peut être compté dans les statistiques
-décrites ci-dessus.</p>
+<p>Le paiement de l'abonnement « Nutri-Fit Premium » est traité par Apple (App Store) :
+nous n'avons jamais accès à vos informations de paiement. Pour vérifier l'achat et
+l'état de l'abonnement, Nutri-Fit utilise
+<a href="https://www.revenuecat.com/privacy">RevenueCat</a>, qui reçoit les informations
+de transaction fournies par Apple (formule, dates, identifiant de transaction, pays de
+l'App Store) rattachées à un identifiant aléatoire créé par l'app — sans nom, sans
+adresse e-mail et sans aucune donnée de santé. Cet échange a lieu que les statistiques
+facultatives soient activées ou non, car il est nécessaire au fonctionnement de
+l'abonnement. Si vous avez accepté les statistiques, les étapes d'un achat (formule
+choisie, réussite ou échec) peuvent aussi y être comptées.</p>
 
 <h2>Notifications</h2>
 <p>Les rappels (séance du jour, pesée, bilan du soir, fin de repos) sont des notifications
@@ -86,7 +103,7 @@ peuvent pas être reliées à une demande individuelle.</p>
 <hr>
 
 <h1 id="en">Privacy Policy — Nutri-Fit</h1>
-<p class="muted">Last updated: September 6, 2026</p>
+<p class="muted">Last updated: November 17, 2026</p>
 
 <p>Nutri-Fit is a workout and nutrition tracking app built to work without accounts, ads,
 or advertising tracking. Your training and nutrition data belongs to you and stays on
@@ -103,7 +120,7 @@ from Settings → Data and privacy.</p>
 <p>If you allow it, Nutri-Fit reads your active calories and weight from Apple Health,
 and can write your workouts, meals, water, and weigh-ins to it. These exchanges happen
 through HealthKit, with the permissions you choose. Nutri-Fit does not send data read
-from Health to Open Food Facts, Sentry or PostHog. Apple's synchronization and backups
+from Health to Open Food Facts, Sentry, PostHog or RevenueCat. Apple's synchronization and backups
 depend on your Apple Health and iCloud settings. You can revoke access at
 any time in iOS Settings → Health.</p>
 
@@ -118,20 +135,38 @@ recognized food names missing from the local catalog may be looked up in Open Fo
 Photos and the complete description are not sent to Open Food Facts.</p>
 
 <h2>Anonymous diagnostics and statistics</h2>
-<p>These optional transmissions are <strong>off by default</strong> and start only
-after you enable them in Settings → Data and privacy.
-To fix crashes and understand which features are useful, Nutri-Fit may send crash
-reports to <a href="https://sentry.io/privacy/">Sentry</a> and anonymous usage events to
-<a href="https://posthog.com/privacy">PostHog</a> (both hosted in the European Union).
-This data contains <strong>no health data, no identity, and no exploited IP
-address</strong> — only action names (such as "workout completed") and neutral counters,
-not linked to you. You can turn this off at any time in Settings → Data and privacy →
-"Anonymous diagnostics and statistics".</p>
+<p>These optional transmissions are <strong>off by default</strong>. Nutri-Fit asks you
+once — "Help improve Nutri-Fit?" — and nothing is sent until you say yes. A single
+switch, in Settings → Data and privacy → "Anonymous diagnostics and statistics", lets you
+change your mind at any time; it covers both services below, both hosted in the European
+Union.</p>
+<p><strong>Usage statistics — <a href="https://posthog.com/privacy">PostHog</a>.</strong>
+Action names taken from a closed list (such as "workout completed" or "food logged") and
+a few technical properties (where the action came from, app version, device model, iOS
+version), attached to a random identifier specific to the installation. No person
+profile is created; there is no screen capture and no session recording.</p>
+<p><strong>Crash diagnostics — <a href="https://sentry.io/privacy/">Sentry</a>.</strong>
+When an error occurs, Nutri-Fit rebuilds a reduced report: the app version, the
+technical type of the error and the call stack. The original message, the device context
+and network requests are not included. On each use, Sentry also receives a technical
+signal saying whether the app closed normally (app version, no content): it is used to
+measure the share of crash-free sessions.</p>
+<p>These transmissions contain <strong>no health data, no content you enter (meals,
+workouts, weigh-ins), no name and no email address</strong>, and are never used for
+advertising. Like any Internet connection, these providers receive technical connection
+information, including the IP address.</p>
 
 <h2>Premium subscription</h2>
-<p>The "Nutri-Fit Premium" subscription is processed entirely by Apple (App Store). We
-never have access to your payment information. Upon purchase, an anonymous event naming
-only the chosen plan may be counted in the statistics described above.</p>
+<p>Payment for the "Nutri-Fit Premium" subscription is processed by Apple (App Store):
+we never have access to your payment information. To verify the purchase and the
+subscription status, Nutri-Fit uses
+<a href="https://www.revenuecat.com/privacy">RevenueCat</a>, which receives the
+transaction information provided by Apple (plan, dates, transaction identifier, App
+Store country) attached to a random identifier created by the app — with no name, no
+email address and no health data. This exchange happens whether or not the optional
+statistics are enabled, because the subscription needs it to work. If you accepted the
+statistics, the steps of a purchase (chosen plan, success or failure) may also be
+counted there.</p>
 
 <h2>Notifications</h2>
 <p>Reminders (today's workout, weigh-in, evening check-in, rest timer) are local
