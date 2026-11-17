@@ -51,9 +51,11 @@ peuvent être recherchés dans Open Food Facts. Les photos et la description com
 ne sont pas envoyées à Open Food Facts.</p>
 
 <h2>Diagnostics et statistiques anonymes</h2>
-<p>Ces envois facultatifs sont <strong>désactivés par défaut</strong>. Nutri-Fit vous
-pose la question une fois — « Aider à améliorer Nutri-Fit ? » — et rien ne part tant que
-vous n'avez pas répondu oui. Un seul interrupteur, dans Réglages → Données et
+<p>Ces envois facultatifs sont <strong>désactivés par défaut</strong>. Rien ne
+part tant que vous ne l'avez pas accepté : Nutri-Fit vous pose la question une fois —
+« Aider à améliorer Nutri-Fit ? ». Jusqu'à la version 1.1.0 (40) incluse, qui ne pose pas
+encore cette question, l'envoi ne démarre qu'après votre activation dans les Réglages.
+Un seul interrupteur, dans Réglages → Données et
 confidentialité → « Diagnostics et statistiques anonymes », vous permet de changer d'avis
 à tout moment ; il vaut pour les deux services ci-dessous, tous deux hébergés dans
 l'Union européenne.</p>
@@ -68,7 +70,11 @@ Lorsqu'une erreur survient, Nutri-Fit reconstruit un rapport réduit : la versio
 l'app, le type technique de l'erreur et la pile d'appels. Le message d'origine, le
 contexte de l'appareil et les requêtes réseau n'y figurent pas. Sentry reçoit aussi, à
 chaque utilisation, un signal technique indiquant si l'app s'est fermée normalement
-(version de l'app, sans contenu) : il sert à mesurer la part d'utilisations sans plantage.</p>
+(version de l'app, sans contenu) : il sert à mesurer la part d'utilisations sans plantage.
+Jusqu'à la version 1.1.0 (40) incluse, le rapport de plantage comprend aussi le message de
+l'erreur, le contexte technique de l'appareil (modèle, version d'iOS), un journal technique
+des derniers événements de l'app et, pour une partie des utilisations, des mesures de
+performance.</p>
 <p>Ces envois ne contiennent <strong>ni donnée de santé, ni contenu saisi (repas,
 séances, pesées), ni nom, ni adresse e-mail</strong>, et ne servent jamais à de la
 publicité. Comme pour toute connexion Internet, ces prestataires reçoivent des
@@ -135,8 +141,10 @@ recognized food names missing from the local catalog may be looked up in Open Fo
 Photos and the complete description are not sent to Open Food Facts.</p>
 
 <h2>Anonymous diagnostics and statistics</h2>
-<p>These optional transmissions are <strong>off by default</strong>. Nutri-Fit asks you
-once — "Help improve Nutri-Fit?" — and nothing is sent until you say yes. A single
+<p>These optional transmissions are <strong>off by default</strong>. Nothing is sent
+until you accept: Nutri-Fit asks you once — "Help improve Nutri-Fit?". Up to and
+including version 1.1.0 (40), which does not ask this question yet, sending only starts
+after you turn it on in Settings. A single
 switch, in Settings → Data and privacy → "Anonymous diagnostics and statistics", lets you
 change your mind at any time; it covers both services below, both hosted in the European
 Union.</p>
@@ -150,7 +158,10 @@ When an error occurs, Nutri-Fit rebuilds a reduced report: the app version, the
 technical type of the error and the call stack. The original message, the device context
 and network requests are not included. On each use, Sentry also receives a technical
 signal saying whether the app closed normally (app version, no content): it is used to
-measure the share of crash-free sessions.</p>
+measure the share of crash-free sessions. Up to and including version 1.1.0 (40), the
+crash report also includes the error message, the technical context of the device (model,
+iOS version), a technical log of the app's latest events and, for a share of uses,
+performance measurements.</p>
 <p>These transmissions contain <strong>no health data, no content you enter (meals,
 workouts, weigh-ins), no name and no email address</strong>, and are never used for
 advertising. Like any Internet connection, these providers receive technical connection
