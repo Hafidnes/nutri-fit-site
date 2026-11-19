@@ -96,7 +96,7 @@
   .ring .val{stroke:#a9f1d1;stroke-dasharray:263.9;stroke-dashoffset:263.9;transition:stroke-dashoffset .9s cubic-bezier(.2,.7,.2,1)}
   .ring b{position:absolute;inset:0;display:grid;place-items:center;font:750 4.6cqw/1 var(--round);font-variant-numeric:tabular-nums}
   .eaten{font:800 9cqw/1 var(--round);font-variant-numeric:tabular-nums;letter-spacing:-.02em;white-space:nowrap}
-  .eaten small{font:500 4cqw/1 -apple-system,sans-serif;color:rgba(238,245,241,.7);letter-spacing:0}
+  .eaten small{display:block;margin-top:1.4cqw;font:500 4cqw/1.15 -apple-system,sans-serif;color:rgba(238,245,241,.7);letter-spacing:0}
   .left{margin-top:1.8cqw;font-size:3.8cqw;color:rgba(238,245,241,.82)}
   .macros{display:grid;grid-template-columns:repeat(3,1fr);gap:3cqw;margin-top:5cqw;text-align:center}
   .macros b{display:block;font:750 4.8cqw/1.1 var(--round);font-variant-numeric:tabular-nums}
@@ -284,8 +284,8 @@
                 <b id="pct">0&nbsp;%</b>
               </div>
               <div>
-                <div class="eaten"><span id="eaten">0</span> <small>/ 2668 kcal</small></div>
-                <div class="left" id="left">Il vous reste 2668 kcal.</div>
+                <div class="eaten"><span id="eaten">0</span> <small>/ 2420 à 2910 kcal</small></div>
+                <div class="left" id="left">Il vous reste 2420 à 2910 kcal pour finir dans votre zone.</div>
               </div>
             </div>
             <div class="macros">
@@ -333,7 +333,7 @@
     <div class="shots solo reveal">
       <div class="device"><picture>
         <source media="(prefers-color-scheme: dark)" srcset="assets/bilan-sombre.jpg">
-        <img src="assets/bilan-clair.jpg" alt="L'onglet Bilan de Nutri-Fit : balance énergétique de −648 kcal, 2020 kcal consommées, 2668 kcal dépensées, et l'équilibre sur sept jours" loading="lazy" width="720" height="1565">
+        <img src="assets/bilan-clair.jpg" alt="L'onglet Bilan de Nutri-Fit : journée en cours, il reste 400 à 890 kcal à manger pour finir dans la zone, 2020 kcal consommées pour 2668 kcal de dépense totale, et une semaine avec 3 jours sur 4 dans la zone" loading="lazy" width="720" height="1565">
       </picture></div>
     </div>
   </div>
@@ -355,6 +355,7 @@
       <h2>Des séances guidées, série après série.</h2>
       <p class="sub">Partez d'un programme prêt à l'emploi ou du vôtre, puis laissez-vous porter.</p>
       <ul class="list">
+        <li><span><b>Des programmes prêts à l'emploi.</b> Full body débutant, Push · Pull · Legs, Haut · Bas, Split 3 jours en prise de masse ou en sèche, Force 5×5 et Maison sans matériel.</span></li>
         <li><span><b>La dernière séance sous les yeux.</b> Charge et répétitions de la fois précédente sont rappelées, et s'ajustent d'une touche.</span></li>
         <li><span><b>Un minuteur de repos qui vous suit.</b> Il reste visible sur l'écran verrouillé et sur l'Apple&nbsp;Watch pendant que vous récupérez.</span></li>
         <li><span><b>Chaque exercice illustré.</b> Vous savez toujours quel mouvement vient ensuite.</span></li>
@@ -385,18 +386,18 @@
         <li><span><b>Scannez un code-barres.</b> Les valeurs nutritionnelles viennent de la base ouverte Open&nbsp;Food&nbsp;Facts.</span></li>
         <li><span><b>Un catalogue intégré.</b> Les aliments courants sont dans l'app, illustrés, disponibles sans connexion.</span></li>
         <li><span><b>Vos aliments récents à portée de main.</b> Ce que vous mangez souvent se rajoute en quelques touches.</span></li>
-        <li><span><b>Calories et macronutriments.</b> Protéines, glucides et lipides face à vos objectifs, avec l'hydratation et le poids.</span></li>
+        <li><span><b>Une zone plutôt qu'un chiffre.</b> Votre objectif devient une fourchette de calories, et l'app vous dit ce qu'il reste à manger pour finir dedans. Protéines, glucides et lipides, hydratation et poids sont suivis à côté.</span></li>
         <li><span><b>Apple Santé, si vous le souhaitez.</b> Séances, repas, eau et pesées peuvent y être enregistrés.</span></li>
       </ul>
     </div>
     <div class="shots reveal">
       <div class="device"><picture>
         <source media="(prefers-color-scheme: dark)" srcset="assets/nutrition-sombre.jpg">
-        <img src="assets/nutrition-clair.jpg" alt="L'onglet Nutrition : 2339 kcal sur 2668, anneau de progression, macronutriments et repas de la journée" loading="lazy" width="720" height="1565">
+        <img src="assets/nutrition-clair.jpg" alt="L'onglet Nutrition : 2339 kcal pour une zone de 2420 à 2910 kcal, anneau de progression, macronutriments et repas de la journée" loading="lazy" width="720" height="1565">
       </picture></div>
       <div class="device"><picture>
         <source media="(prefers-color-scheme: dark)" srcset="assets/ajout-sombre.jpg">
-        <img src="assets/ajout-clair.jpg" alt="L'écran Ajouter un aliment : recherche, lecteur de code-barres et aliments récents illustrés" loading="lazy" width="720" height="1565">
+        <img src="assets/ajout-clair.jpg" alt="L'écran Ajouter un aliment : recherche, code-barres ou photo, et aliments récents illustrés" loading="lazy" width="720" height="1565">
       </picture></div>
     </div>
   </div>
@@ -517,7 +518,7 @@
       </details>
       <details>
         <summary>Comment la balance est-elle calculée&nbsp;?</summary>
-        <p>C'est la différence entre ce que vous avez mangé, d'après votre journal, et votre dépense estimée de la journée. La dépense tient compte de votre profil et, si vous l'autorisez, des calories actives lues dans Apple&nbsp;Santé. Tant qu'une journée n'est pas confirmée comme complète, la balance est indiquée «&nbsp;À confirmer&nbsp;» plutôt que d'afficher un chiffre trompeur. Il s'agit d'une estimation, pas d'une mesure médicale.</p>
+        <p>C'est la différence entre ce que vous avez mangé, d'après votre journal, et votre dépense estimée de la journée. La dépense tient compte de votre profil et, si vous l'autorisez, des calories actives lues dans Apple&nbsp;Santé. Pendant la journée, le Bilan l'indique «&nbsp;En cours&nbsp;» et vous dit ce qu'il vous reste à manger pour finir dans votre zone. À minuit, la journée est comptée automatiquement avec les repas saisis, sans rien à confirmer&nbsp;; une journée sans repas n'est pas comptée. Il s'agit d'une estimation, pas d'une mesure médicale.</p>
       </details>
       <details>
         <summary>D'où viennent les valeurs nutritionnelles&nbsp;?</summary>
@@ -588,8 +589,9 @@
 <script>
 (function(){
   // Démonstration : une journée se remplit, repas après repas, comme dans l'onglet Nutrition.
-  // L'état final reprend la capture de l'app (2339 / 2668 kcal, 151 g · 228 g · 84 g).
-  var SPENT=2668, C=263.9;
+  // L'état final reprend la capture de l'app 1.2.0 : 2339 kcal, zone de 2420 à 2910 kcal
+  // (dépense 2668 kcal ± 250, bornes arrondies à la dizaine vers l'intérieur), 151 g · 228 g · 84 g.
+  var SPENT=2668, LOW=SPENT-250, HIGH=SPENT+250, RING=Math.ceil(LOW/10)*10, C=263.9;
   var steps=[
     {kcal:0,    p:0,   g:0,   l:0},
     {kcal:334,  p:18,  g:44,  l:9},
@@ -605,13 +607,14 @@
   function paint(kcal){
     var k=Math.round(kcal);
     el("eaten").textContent=k;
-    el("pct").innerHTML=Math.round(k/SPENT*100)+"&nbsp;%";
-    el("left").textContent="Il vous reste "+(SPENT-k)+" kcal.";
+    el("pct").innerHTML=Math.round(k/RING*100)+"&nbsp;%";
+    var lo=Math.ceil(Math.max(0,LOW-k)/10)*10, hi=Math.floor(Math.max(0,HIGH-k)/10)*10;
+    el("left").textContent="Il vous reste "+lo+" à "+hi+" kcal pour finir dans votre zone.";
     el("bal").textContent="−"+(SPENT-k);
   }
   function show(i,instant){
     var s=steps[i], from=shown;
-    el("ring").style.strokeDashoffset=C*(1-Math.min(s.kcal/SPENT,1));
+    el("ring").style.strokeDashoffset=C*(1-Math.min(s.kcal/RING,1));
     ["p","g","l"].forEach(function(k){
       el(k).textContent=s[k]+" g";
       el(k+"b").style.width=Math.min(100,s[k]/goals[k]*100)+"%";
